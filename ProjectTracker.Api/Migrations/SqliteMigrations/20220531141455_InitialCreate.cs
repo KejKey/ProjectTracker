@@ -9,7 +9,7 @@ namespace ProjectTracker.Api.Migrations.SqliteMigrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BacklogItem",
+                name: "BacklogItems",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -20,7 +20,7 @@ namespace ProjectTracker.Api.Migrations.SqliteMigrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BacklogItem", x => x.Id);
+                    table.PrimaryKey("PK_BacklogItems", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -56,7 +56,7 @@ namespace ProjectTracker.Api.Migrations.SqliteMigrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "BacklogItem");
+                name: "BacklogItems");
 
             migrationBuilder.DropTable(
                 name: "Bugs");

@@ -8,7 +8,7 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ProjectTrackerDbContext>();
+builder.Services.AddDbContext<TrackerDbContext>();
 builder.Services.AddCors();
 builder.Services.AddControllers();
 
@@ -23,7 +23,7 @@ if (app.Environment.IsDevelopment())
 
 using (var scope = app.Services.CreateScope())
 {
-    var dataContext = scope.ServiceProvider.GetRequiredService<ProjectTrackerDbContext>();
+    var dataContext = scope.ServiceProvider.GetRequiredService<ProjectTracker.Api.Data.TrackerDbContext>();
     dataContext.Database.Migrate();
 }
 

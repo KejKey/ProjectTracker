@@ -3,10 +3,10 @@ using ProjectTracker.Api.Entities;
 
 namespace ProjectTracker.Api.Data
 {
-    public class ProjectTrackerDbContext: DbContext
+    public class TrackerDbContext: DbContext
     {
         protected readonly IConfiguration Configuration;
-        public ProjectTrackerDbContext(IConfiguration configuration) => Configuration = configuration;
+        public TrackerDbContext(IConfiguration configuration) => Configuration = configuration;
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
@@ -14,7 +14,7 @@ namespace ProjectTracker.Api.Data
         }
 
         public DbSet<Project> Projects { get; set; }
-        public DbSet<Backlog> BacklogItem { get; set; }
+        public DbSet<Backlog> BacklogItems { get; set; }
         public DbSet<Bug> Bugs { get; set; }
     }
 }

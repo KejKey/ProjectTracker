@@ -9,12 +9,9 @@ namespace ProjectTracker.Api.Controllers
     [Route("[controller]")]
     public class ProjectsController: ControllerBase
     {
-        private ProjectTrackerDbContext _context;
+        private TrackerDbContext _context;
 
-        public ProjectsController(ProjectTrackerDbContext context)
-        {
-            _context = context;
-        }
+        public ProjectsController(TrackerDbContext context) => _context = context;
 
         [HttpPost("AddProject")]
         public IActionResult AddProject(Project model)
@@ -22,8 +19,42 @@ namespace ProjectTracker.Api.Controllers
             _context.Projects.Add(model);
             _context.SaveChanges();
 
+
             return Ok("Project added");
 
+        }
+
+        [HttpGet]
+        public IEnumerable<Project> GetAll()
+        {
+            return _context.Projects.Where(model => model.isDeleted == false);
+
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var model = _context.Projects.Find(id);
+            if (model == null || model.isDeleted == true) throw new KeyNotFoundException("Project not found!");
+
+            
+            return Ok(model);
+
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var model = await _context.Projects.FindAsync(id);
+            if (model == null) throw new KeyNotFoundException("Project not found!");
+
+            model.isDeleted = true;
+            _context.Projects.Update(model);
+            _context.SaveChanges();
+
+
+            return Ok(model);
         }
 
     }
